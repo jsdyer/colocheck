@@ -28,11 +28,29 @@ export function median(values) {
   return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2;
 }
 
+const COUNTRY = { Canada: 'CA', 'United States': 'US', Mexico: 'MX', 'United Kingdom': 'GB', Ireland: 'IE', France: 'FR', Germany: 'DE', Netherlands: 'NL', Japan: 'JP', Australia: 'AU', 'New Zealand': 'NZ', Brazil: 'BR', India: 'IN', Singapore: 'SG' };
+
+/**
+ * Cloudflare's status page lists each data centre as a component named like
+ * "Vancouver, BC, Canada - (YVR)". Turn those into location records (no coordinates).
+ */
+export function parseStatusComponents(json) {
+  const out = [];
+  for (const c of json?.components || []) {
+    const m = String(c.name || '').match(/^(.+?)\s*-\s*\(([A-Z]{3})\)\s*$/);
+    if (!m) continue;
+    const parts = m[1].split(',').map((x) => x.trim());
+    const country = parts.length > 1 ? parts.at(-1) : null;
+    out.push({ iata: m[2], city: parts[0], place: m[1], country, cca2: COUNTRY[country] || null, status: c.status || null });
+  }
+  return out;
+}
+
 /** Locations list → map by IATA code (from Cloudflare's list or the seed). */
 export function indexLocations(list) {
   const map = new Map();
   for (const l of Array.isArray(list) ? list : []) {
-    if (l && /^[A-Z]{3}$/.test(l.iata)) map.set(l.iata, { iata: l.iata, city: l.city || l.iata, cca2: l.cca2 || null, lat: Number(l.lat), lon: Number(l.lon), region: l.region || null });
+    if (l && /^[A-Z]{3}$/.test(l.iata)) map.set(l.iata, { iata: l.iata, city: l.city || l.iata, cca2: l.cca2 || null, country: l.country || null, lat: Number(l.lat), lon: Number(l.lon), region: l.region || null });
   }
   return map;
 }
@@ -71,7 +89,7 @@ export function summarizeEndpoint(endpoint, samples, locations, home) {
   const visitorCountry = t.loc;
   return {
     id: endpoint.id, label: endpoint.label, status: 'ok',
-    colo: t.colo, colos, city: loc?.city || null, country: loc?.cca2 || null,
+    colo: t.colo, colos, city: loc?.city || null, country: loc?.cca2 || null, countryName: loc?.country || null,
     family: t.family, ip: t.ip, visitorCountry, http: t.http, warp: t.warp,
     medianMs: median(ok.map((s) => s.ms)), minMs: Math.min(...ok.map((s) => s.ms)), samples: ok.length,
     crossBorder: Boolean(visitorCountry === home && loc?.cca2 && loc.cca2 !== home),

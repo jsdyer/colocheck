@@ -55,7 +55,7 @@ function render() {
   const main = ok.find((r) => r.id === 'default') || ok[0];
   const v = $('#verdict');
   if (main) {
-    const place = main.city ? `${main.city}${main.country ? `, ${main.country}` : ''}` : 'an unlisted location';
+    const place = main.city ? `${main.city}${main.countryName || main.country ? `, ${main.countryName || main.country}` : ''}` : 'an unlisted location';
     const crossed = ok.filter((r) => r.crossBorder && r !== main);
     v.replaceChildren(...[
       h('span', { class: 'big' }, `${FLAG(main.country)} ${main.colo}`), ' ',

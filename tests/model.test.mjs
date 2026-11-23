@@ -61,3 +61,16 @@ test('custom sites become trace endpoints; endpoints beyond the defaults are acc
   assert.ok(config.endpoints.every((e) => e.url.endsWith('/cdn-cgi/trace') && e.id && e.label));
   assert.equal(M.customEndpoints(Array.from({ length: 9 }, (_, i) => `s${i}.example.ca`).join('\n'), config.max_custom_hosts).length, config.max_custom_hosts);
 });
+
+test('status-page components become locations with countries', () => {
+  const list = M.parseStatusComponents({ components: [
+    { name: 'Vancouver, BC, Canada - (YVR)', status: 'operational' },
+    { name: 'Seattle, WA, United States - (SEA)', status: 'operational' },
+    { name: 'Sofia, Bulgaria - (SOF)', status: 'partial_outage' },
+    { name: 'North America', status: 'operational' },
+  ] });
+  assert.deepEqual(list.map((l) => [l.iata, l.city, l.cca2, l.country]), [['YVR', 'Vancouver', 'CA', 'Canada'], ['SEA', 'Seattle', 'US', 'United States'], ['SOF', 'Sofia', null, 'Bulgaria']]);
+  const map = M.indexLocations(list);
+  assert.equal(map.get('SOF').country, 'Bulgaria');
+  assert.ok(config.locations_sources.length >= 2);
+});

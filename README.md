@@ -19,7 +19,7 @@ Choose "Check my connection". The large code is the data centre your browser's n
 
 - A browser can't tell "unreachable" apart from "the site doesn't allow other pages to read it". Both show as **No readable answer**. Sites you add usually show this, because their owners don't allow cross-site reads.
 - Median and fastest times include TLS and HTTP overhead from your browser. They're useful for comparing routes, not as a ping replacement.
-- The data-centre list is fetched from Cloudflare (`speed.cloudflare.com/locations`) at each deploy. `web/locations-seed.json` is the fallback and always keeps Canadian sites named.
+- The data-centre list is fetched from Cloudflare at each deploy: `speed.cloudflare.com/locations` if it answers, otherwise Cloudflare's status page. `web/locations-seed.json` fills gaps and always keeps Canadian sites named.
 
 ## Expand or customize
 
@@ -32,7 +32,7 @@ Settings live in **`web/config.json`**:
 | `home_country` | Country for the border flag (default `CA`). |
 | `max_custom_hosts` | How many extra sites a visitor can add per run. |
 | `max_saved_runs` | How many saved runs one browser keeps. |
-| `locations_source` | Where the deploy fetches Cloudflare's data-centre list. |
+| `locations_sources` | Where the deploy looks for Cloudflare's data-centre list, in order: speed.cloudflare.com (with coordinates), then the official status page (names and countries). The seed list fills in coordinates for Canadian and nearby US sites. |
 
 For example, to test an extra address, add `{ "id": "one", "label": "one.one.one.one", "url": "https://one.one.one.one/cdn-cgi/trace", "family": "auto" }` to `endpoints` and push to `main`. The workflow runs the tests, refreshes the data-centre list, builds and deploys. Add `?run=1` to the page address to start a check as soon as the page loads.
 

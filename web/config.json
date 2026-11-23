@@ -11,5 +11,5 @@
   "home_country": "CA",
   "max_custom_hosts": 5,
   "max_saved_runs": 50,
-  "locations_source": "https://speed.cloudflare.com/locations"
+  "locations_sources": ["https://speed.cloudflare.com/locations", "https://www.cloudflarestatus.com/api/v2/components.json"]
 }
