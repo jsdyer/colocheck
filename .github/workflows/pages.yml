@@ -26,6 +26,9 @@ jobs:
         run: node --test tests/*.test.mjs
       - name: Test the builder
         run: python3 -m unittest discover -s tests -v
+      - name: Fetch Cloudflare's data-centre list
+        if: github.event_name != 'pull_request'
+        run: node scripts/locations.mjs
       - name: Build the static application
         run: python3 scripts/build.py
       - name: Check whether the tool has been initialized

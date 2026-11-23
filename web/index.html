@@ -13,21 +13,46 @@
   <a class="skip" href="#main">Skip to content</a>
   <header><a href="https://coolcode.ca/">← CoolCode.ca</a><a href="{{SOURCE_URL}}">Source &amp; instructions ↗</a></header>
   <main id="main">
-    <p class="eyebrow">Browser tool starter</p>
+    <p class="eyebrow">Networks &amp; routing · where your traffic lands</p>
     <h1>{{TITLE}}</h1>
     <p class="intro">{{DESCRIPTION}}</p>
-    <section aria-labelledby="example-title">
-      <h2 id="example-title">Clean a list</h2>
-      <p>Trim spaces, skip blank lines and remove exact duplicates. Capitalization stays distinct.</p>
-      <div class="panels">
-        <div><label for="input">Your lines</label><textarea id="input" rows="10" maxlength="100000" spellcheck="false" placeholder="Paste one item per line"></textarea></div>
-        <div><label for="output">Cleaned lines</label><textarea id="output" rows="10" readonly spellcheck="false"></textarea></div>
-      </div>
-      <div class="actions"><button id="sample" type="button">Load example</button><button id="clear" type="button">Clear</button><button id="copy" type="button" hidden>Copy result</button></div>
-      <p id="status" role="status" aria-live="polite">Paste a list to begin.</p>
-      <noscript><p>This tool needs JavaScript to process your text. The source is available above.</p></noscript>
+
+    <section aria-labelledby="run-title">
+      <h2 id="run-title">Run a check</h2>
+      <p>Your browser asks several Cloudflare addresses which data centre answered, timing each one <span id="samples">5</span> times. It takes a few seconds. Run it again on another network, such as mobile data, a VPN or another ISP, to compare.</p>
+      <details>
+        <summary>Add Cloudflare-hosted sites (optional)</summary>
+        <label for="custom">Sites, one per line</label>
+        <textarea id="custom" rows="3" spellcheck="false" placeholder="example.ca"></textarea>
+        <p class="small">Most sites don't let other pages read their trace, so these often show "No readable answer". The built-in addresses always work where Cloudflare allows it.</p>
+      </details>
+      <div class="actions"><button type="button" id="run">Check my connection</button></div>
+      <p id="status" role="status" aria-live="polite"></p>
+      <noscript><p>This tool needs JavaScript to run the checks from your browser.</p></noscript>
     </section>
-    <aside aria-label="Privacy"><strong>Stays on your device.</strong> The browser processes your text in this tab. Reloading clears it.</aside>
+
+    <section id="result" aria-labelledby="result-title" hidden>
+      <h2 id="result-title">Result</h2>
+      <p class="verdict" id="verdict"></p>
+      <div class="table-wrap"><table id="table"></table></div>
+      <p class="small" id="footnote"></p>
+      <form id="save-form" class="save">
+        <label for="save-label">Save this run on this device</label>
+        <div class="row"><input id="save-label" maxlength="60" placeholder="e.g. Home fibre, Rogers 5G"><button type="submit">Save</button></div>
+      </form>
+    </section>
+
+    <section id="saved" aria-labelledby="saved-title" hidden>
+      <h2 id="saved-title">Saved runs</h2>
+      <div class="table-wrap"><table id="saved-table"></table></div>
+      <div class="actions">
+        <button type="button" class="quiet-btn" id="export">Export runs (.json)</button>
+        <label class="quiet-btn file">Import runs<input type="file" id="import" accept="application/json,.json" hidden></label>
+        <button type="button" class="quiet-btn" id="clear">Delete all saved runs</button>
+      </div>
+    </section>
+
+    <aside aria-label="Privacy and sources"><strong>What leaves your browser.</strong> The check makes ordinary HTTPS requests from your browser to Cloudflare's diagnostic page (<code>/cdn-cgi/trace</code>) on the addresses listed, plus any sites you add. Cloudflare sees your IP address, as it does for any site it serves. Nothing is sent to coolcode.ca. Your full IP address is shown on screen but never saved. Saved runs keep only the network prefix (/24 or /48), and only in this browser, under <code>coolcode:colocheck:runs</code>. Data-centre names come from Cloudflare's published location list.</aside>
   </main>
   <footer>Part of <a href="https://coolcode.ca/">the CoolCode collection</a>. {{ISSUE_LINK}}</footer>
 </body>

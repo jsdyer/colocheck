@@ -1,16 +1,27 @@
 {
-  "id": "coolcode-tool-template",
-  "title": "CoolCode Tool Starter",
-  "description": "A browser-only example that trims lines and removes exact duplicates.",
-  "category": "security",
-  "tags": ["text", "lines", "duplicates"],
-  "icon": "scan-search",
-  "url": "/coolcode-tool-template/",
-  "source": "https://github.com/jsdyer/coolcode-tool-template",
+  "id": "colocheck",
+  "title": "Colo Check",
+  "description": "See which Cloudflare data centre your connection reaches over IPv4 and IPv6, how fast it answers, and whether Canadian traffic crosses the border.",
+  "category": "liminal-tools",
+  "tags": [
+    "cloudflare",
+    "colo",
+    "data centre",
+    "latency",
+    "ipv6",
+    "routing",
+    "boomerang",
+    "cdn",
+    "peering",
+    "canada"
+  ],
+  "icon": "radar",
+  "url": "/colocheck/",
+  "source": "https://github.com/jsdyer/colocheck",
   "hosting": "project",
   "access": "browser",
   "data_info": {
-    "mode": "local",
-    "detail": "The browser reads the text you paste and compares its lines."
+    "mode": "live",
+    "detail": "Your browser reads Cloudflare's /cdn-cgi/trace page from several addresses; data-centre names come from Cloudflare's published location list."
   }
 }
