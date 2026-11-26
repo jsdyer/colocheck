@@ -4,7 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="{{DESCRIPTION}}">
-  <title>{{TITLE}} · CoolCode</title>
+  <title>Cloudflare Edge Latency Check · CoolCode</title>
+  <link rel="canonical" href="https://coolcode.ca/colocheck/">
   <link rel="stylesheet" href="./style.css">
   <script type="module" src="./app.mjs"></script>
   {{VISIT_COUNTER}}
@@ -52,6 +53,7 @@
       </div>
     </section>
 
+    <p><a href="https://coolcode.ca/edge-map/">Map the data centres serving IPv4 and IPv6 and keep a history of location changes</a>.</p>
     <aside aria-label="Privacy and sources"><strong>What leaves your browser.</strong> The check makes ordinary HTTPS requests from your browser to Cloudflare's diagnostic page (<code>/cdn-cgi/trace</code>) on the addresses listed, plus any sites you add. Cloudflare sees your IP address, as it does for any site it serves. Nothing is sent to coolcode.ca. Your full IP address is shown on screen but never saved. Saved runs keep only the network prefix (/24 or /48), and only in this browser, under <code>coolcode:colocheck:runs</code>. Data-centre names come from Cloudflare's published location list.</aside>
   </main>
   <footer>Part of <a href="https://coolcode.ca/">the CoolCode collection</a>. {{ISSUE_LINK}}</footer>

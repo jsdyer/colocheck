@@ -17,6 +17,8 @@ Every Cloudflare-served host exposes a small diagnostic page, `/cdn-cgi/trace`, 
 Choose "Check my connection". The large code is the data centre your browser's normal route reached. Rows highlighted in orange reached a data centre outside Canada although Cloudflare placed you in Canada. That usually means your ISP hands Cloudflare traffic over in the US (for example, Vancouver traffic served from Seattle). Compare the IPv4 and IPv6 rows: they often take different paths. Save each run with a label such as "Home fibre" or "Phone on 5G", then run it again on another network to compare. Saved runs keep only your network prefix, never your full address.
 <!-- /coolcode:guide -->
 
+[Map the data centres serving IPv4 and IPv6 and keep a history of location changes](https://coolcode.ca/edge-map/).
+
 - A browser can't tell "unreachable" apart from "the site doesn't allow other pages to read it". Both show as **No readable answer**. Sites you add usually show this, because their owners don't allow cross-site reads.
 - Median and fastest times include TLS and HTTP overhead from your browser. They're useful for comparing routes, not as a ping replacement.
 - The data-centre list is fetched from Cloudflare at each deploy: `speed.cloudflare.com/locations` if it answers, otherwise Cloudflare's status page. `web/locations-seed.json` fills gaps and always keeps Canadian sites named.

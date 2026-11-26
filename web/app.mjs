@@ -60,7 +60,7 @@ function render() {
     v.replaceChildren(...[
       h('span', { class: 'big' }, `${FLAG(main.country)} ${main.colo}`), ' ',
       `Your connection reached Cloudflare's ${place} data centre over IPv${main.family}, in about ${ms(main.medianMs)}.`,
-      main.crossBorder ? h('strong', { class: 'warn' }, ' Your traffic left Canada to get there.') : null,
+      main.crossBorder ? h('strong', { class: 'warn' }, ' Cloudflare located this client in Canada and the responding data centre outside Canada.') : null,
       crossed.length ? h('strong', { class: 'warn' }, ` ${crossed.map((r) => r.label).join(', ')} reached ${[...new Set(crossed.map((r) => r.city || r.colo))].join(', ')}, outside Canada.`) : null,
     ].filter(Boolean));
     if (main.crossBorder) {

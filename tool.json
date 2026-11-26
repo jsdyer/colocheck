@@ -1,7 +1,7 @@
 {
   "id": "colocheck",
   "title": "Colo Check",
-  "description": "See which Cloudflare data centre your connection reaches over IPv4 and IPv6, how fast it answers, and whether Canadian traffic crosses the border.",
+  "description": "Compare Cloudflare response times over IPv4 and IPv6 and see which data centre answers each request.",
   "category": "liminal-tools",
   "tags": [
     "cloudflare",
